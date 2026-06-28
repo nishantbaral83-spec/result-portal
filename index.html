@@ -1,0 +1,244 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Result Portal</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#eef3f8;
+}
+
+header{
+    background:#003366;
+    color:#fff;
+    text-align:center;
+    padding:20px;
+    font-size:30px;
+    font-weight:bold;
+    box-shadow:0 3px 8px rgba(0,0,0,.2);
+}
+
+.container{
+    width:95%;
+    max-width:700px;
+    margin:40px auto;
+    background:#fff;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 5px 20px rgba(0,0,0,.15);
+}
+
+h2{
+    text-align:center;
+    color:#003366;
+    margin-bottom:25px;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    margin-bottom:6px;
+    font-weight:bold;
+}
+
+select,
+input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    font-size:15px;
+}
+
+button{
+    width:100%;
+    margin-top:25px;
+    padding:14px;
+    border:none;
+    border-radius:6px;
+    background:#0057b8;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#00408b;
+}
+
+#error{
+    color:red;
+    text-align:center;
+    margin-top:20px;
+    font-weight:bold;
+}
+
+#loading{
+    display:none;
+    text-align:center;
+    margin-top:20px;
+    color:#003366;
+    font-size:18px;
+}
+
+#result{
+    display:none;
+    margin-top:30px;
+    text-align:center;
+}
+
+#result img{
+    width:100%;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+.action-buttons{
+    display:flex;
+    gap:10px;
+    margin-top:20px;
+}
+
+.action-buttons button{
+    margin-top:0;
+}
+
+@media(max-width:600px){
+    .action-buttons{
+        flex-direction:column;
+    }
+}
+</style>
+
+</head>
+<body>
+
+<header>
+University Result Portal
+</header>
+
+<div class="container">
+
+<h2>View Examination Result</h2>
+
+<label>Year</label>
+<select id="year">
+    <option value="">Select Year</option>
+    <option>2082</option>
+    <option>2081</option>
+    <option>2080</option>
+</select>
+
+<label>Academic Session</label>
+<select id="session">
+    <option value="">Select Session</option>
+    <option>2082/83</option>
+    <option>2081/82</option>
+</select>
+
+<label>Year / Semester / Trimester</label>
+<select id="semester">
+    <option value="">Select</option>
+    <option>1st Semester</option>
+    <option>2nd Semester</option>
+</select>
+
+<label>Program</label>
+<select id="program">
+    <option value="">Select Program</option>
+    <option>Bachelor of Civil Engineering</option>
+    <option>Bachelor of Computer Engineering</option>
+    <option>Bachelor of Architecture</option>
+</select>
+
+<label>Exam Roll Number</label>
+<input type="text" id="roll" placeholder="Enter Roll Number">
+
+<label>Date of Birth</label>
+<input type="date" id="dob">
+
+<button onclick="checkResult()">View Result</button>
+
+<div id="loading">Loading Result...</div>
+
+<div id="error"></div>
+
+<div id="result">
+
+<h2>Your Result</h2>
+
+<img src="result.png" alt="Result">
+
+<div class="action-buttons">
+    <button onclick="window.print()">Print Result</button>
+    <button onclick="downloadResult()">Download Result</button>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function checkResult(){
+
+    document.getElementById("error").innerHTML="";
+    document.getElementById("result").style.display="none";
+    document.getElementById("loading").style.display="block";
+
+    const year=document.getElementById("year").value;
+    const session=document.getElementById("session").value;
+    const semester=document.getElementById("semester").value;
+    const program=document.getElementById("program").value;
+    const roll=document.getElementById("roll").value.trim();
+    const dob=document.getElementById("dob").value;
+
+    setTimeout(function(){
+
+        document.getElementById("loading").style.display="none";
+
+        if(
+            year==="2082" &&
+            session==="2082/83" &&
+            semester==="1st Semester" &&
+            program==="Bachelor of Civil Engineering" &&
+            roll==="25041067" &&
+            dob==="2009-09-01"
+        ){
+
+            document.getElementById("result").style.display="block";
+
+        }else{
+
+            document.getElementById("error").innerHTML="No Result Found. Please check your details.";
+
+        }
+
+    },1500);
+
+}
+
+function downloadResult(){
+
+    const a=document.createElement("a");
+    a.href="result.png";
+    a.download="Result.png";
+    a.click();
+
+}
+
+</script>
+
+</body>
+</html>
+```
